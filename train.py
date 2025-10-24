@@ -54,20 +54,19 @@ class Trainer:
                         f"Test Accuracy: {accuracy * 100:.2f}%"
                     )
     
-    def predict(self, data: torch.FloatTensor):
+    def predict(self, data: torch.FloatTensor) -> torch.Tensor:
         with torch.no_grad():
-            predictions: torch.Tensor = self.model(data)
-            print(f"Predictions: {predictions.round().numpy()}")
+            return self.model(data)
     
     def save(self, path: str):
         torch.save(self.model.state_dict(), path)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     trainer = Trainer()
     trainer.run()
 
-    trainer.predict(torch.FloatTensor([
-        [0.1892414, 0.8114113]
-    ]))
+    data = torch.FloatTensor([[0.1892414, 0.8114113]])
+    predictions = trainer.predict(data)
+    print(f"Predictions: {predictions.round().numpy()}")
 
-    trainer.save("assets/model-test.pth")
+    # trainer.save("assets/test-model.pth")

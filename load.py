@@ -11,5 +11,5 @@ def main():
         predictions: torch.Tensor = model(data)
         print(f"Predictions: {predictions.round().numpy()}")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
