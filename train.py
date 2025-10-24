@@ -1,26 +1,8 @@
 import torch
 import torch.nn as nn
-import numpy as np
-from sklearn.model_selection import train_test_split
 
 from src.dataset import Dataset
 from src.model import BinaryClassifier
-
-class Dataset:
-    def __init__(self, seed: int = 42):
-        np.random.seed(seed)
-
-        points = np.random.rand(500, 2)
-        labels = (points[:, 0] + points[:, 1] > 1).astype(dtype=np.float32)
-
-        points_train, points_test, labels_train, labels_test = train_test_split(
-            points, labels, test_size=0.2, random_state=seed
-        )
-
-        self.points_train = torch.FloatTensor(points_train)
-        self.points_test = torch.FloatTensor(points_test)
-        self.labels_train = torch.FloatTensor(labels_train).reshape(-1, 1)
-        self.labels_test = torch.FloatTensor(labels_test).reshape(-1, 1)
 
 class Trainer:
     def __init__(self):
@@ -44,7 +26,7 @@ class Trainer:
                     test_outputs: torch.Tensor = self.model(self.dataset.points_test)
                     test_loss: torch.Tensor = self.criterion(test_outputs, self.dataset.labels_test)
                     
-                    predictions = (test_outputs > 0.5).float()
+                    predictions = test_outputs.round()
                     accuracy = (predictions == self.dataset.labels_test).float().mean()
 
                     print(
