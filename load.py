@@ -6,8 +6,9 @@ def main():
     model.load_state_dict(torch.load("assets/model.pth"))
     model.eval()
 
+    data = torch.FloatTensor([[0.1892414, 0.8114113]])
+
     with torch.no_grad():
-        data = torch.FloatTensor([[0.1892414, 0.8114113]])
         predictions: torch.Tensor = model(data)
         print(f"Predictions: {predictions.round().numpy()}")
 

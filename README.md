@@ -47,7 +47,7 @@
 2. **Настройка модели и оптимизации**  
    - Используется модель `BinaryClassifier` с архитектурой: `2 → 16 (ReLU) → 1 (Sigmoid)`.  
    - Функция потерь: **BCELoss** (Binary Cross-Entropy).  
-   - Оптимизатор: **Adam** с шагом обучения `lr=0.01`.
+   - Оптимизатор: **AdamW** с шагом обучения `lr=0.01`.
 
 3. **Процесс обучения (метод `run`)**  
    - Обучение проходит в цикле на **100 эпох**.  
@@ -62,7 +62,7 @@
    - Каждые **10 эпох** выводятся:  
      - `Train Loss` — ошибка на обучающей выборке.  
      - `Test Loss` — ошибка на тестовой выборке (не участвует в обучении).  
-     - `Test Accuracy` — **точность в процентах** на тестовых данных.  
+     - `Test MAE` — **средняя абсолютная ошибка** на тестовых данных.  
    - Оценка проводится **без градиентов** (`with torch.no_grad()`).
 
 5. **Предсказание и сохранение**  
@@ -71,16 +71,16 @@
 
 ### Пример вывода:
 ```
-Epoch: 10, Train Loss: 0.6384, Test Loss: 0.6380, Test Accuracy: 89.00%
-Epoch: 20, Train Loss: 0.5732, Test Loss: 0.5767, Test Accuracy: 88.00%
-Epoch: 30, Train Loss: 0.4909, Test Loss: 0.4964, Test Accuracy: 93.00%
-Epoch: 40, Train Loss: 0.4084, Test Loss: 0.4191, Test Accuracy: 97.00%
-Epoch: 50, Train Loss: 0.3343, Test Loss: 0.3485, Test Accuracy: 97.00%
-Epoch: 60, Train Loss: 0.2747, Test Loss: 0.2911, Test Accuracy: 99.00%
-Epoch: 70, Train Loss: 0.2303, Test Loss: 0.2488, Test Accuracy: 100.00%
-Epoch: 80, Train Loss: 0.1977, Test Loss: 0.2183, Test Accuracy: 100.00%
-Epoch: 90, Train Loss: 0.1735, Test Loss: 0.1955, Test Accuracy: 100.00%
-Epoch: 100, Train Loss: 0.1550, Test Loss: 0.1782, Test Accuracy: 100.00%
+Epoch: 10, Train Loss: 0.5315, Test Loss: 0.5274, Test MAE: 0.406
+Epoch: 20, Train Loss: 0.2719, Test Loss: 0.2933, Test MAE: 0.238
+Epoch: 30, Train Loss: 0.1519, Test Loss: 0.1866, Test MAE: 0.153
+Epoch: 40, Train Loss: 0.1084, Test Loss: 0.1454, Test MAE: 0.119
+Epoch: 50, Train Loss: 0.0865, Test Loss: 0.1238, Test MAE: 0.102
+Epoch: 60, Train Loss: 0.0730, Test Loss: 0.1099, Test MAE: 0.091
+Epoch: 70, Train Loss: 0.0637, Test Loss: 0.0999, Test MAE: 0.083
+Epoch: 80, Train Loss: 0.0569, Test Loss: 0.0922, Test MAE: 0.077
+Epoch: 90, Train Loss: 0.0517, Test Loss: 0.0860, Test MAE: 0.072
+Epoch: 100, Train Loss: 0.0476, Test Loss: 0.0809, Test MAE: 0.068
 ```
 
 Модель достигает **высокой точности** и успешно обобщает на невиданных данных благодаря достаточному объёму данных и простой, но выразительной архитектуре.
